@@ -430,10 +430,8 @@ theorem splitAux_of_valid (p l m r acc) :
           _ ∧ _ ∧ _),
       List.splitOnP.go, List.reverse_reverse]
     split <;> rename_i h
-    · simp_all only [List.head?_cons, Option.getD_some]
-      simpa [Nat.add_assoc] using splitAux_of_valid p (l++m++[c]) [] r (⟨m⟩::acc)
-    · simp_all only [List.head?_cons, Option.getD_some]
-      simpa [Nat.add_assoc] using splitAux_of_valid p l (m++[c]) r acc
+    · simpa [Nat.add_assoc] using splitAux_of_valid p (l++m++[c]) [] r (⟨m⟩::acc)
+    · simpa [Nat.add_assoc] using splitAux_of_valid p l (m++[c]) r acc
 
 theorem split_of_valid (s p) : split s p = (List.splitOnP p s.1).map mk := by
   simpa [split] using splitAux_of_valid p [] [] s.1 []
@@ -452,9 +450,6 @@ theorem join_eq (ss : List String) : join ss = ⟨(ss.map data).flatten⟩ := go
 
 @[simp] theorem data_join (ss : List String) : (join ss).data = (ss.map data).flatten := by
   rw [join_eq]
-
-@[deprecated (since := "2024-06-06")] alias append_nil := append_empty
-@[deprecated (since := "2024-06-06")] alias nil_append := empty_append
 
 namespace Iterator
 
